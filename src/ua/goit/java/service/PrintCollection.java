@@ -24,11 +24,7 @@ public class PrintCollection {
 
         int lengthLine = maxLengthName + maxLengthColor + TO_BORDER * TO_BORDER;
 
-        char[] chars = new char[lengthLine];
-        for (int i = 0; i < chars.length; i++) {
-            chars[i] = '-';
-        }
-        String line = new String(chars);
+        String line = new String(new char[lengthLine]).replace("\0", "-");
 
         System.out.println(line);
         String stringFormat = "|%-" + (maxLengthName + toBorder) + "s|%-" + (maxLengthColor + toBorder) + "s|\n";
