@@ -3,15 +3,42 @@ package ua.goit.java.service;
 import ua.goit.java.flower.Flower;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public class PrintCollection {
-    public void print(Collection<Flower> collection) {
-        Iterator<Flower> iterator = collection.iterator();
+    private final static int TO_BORDER = 3;
 
-        while (iterator.hasNext()) {
-            Flower flower = iterator.next();
-            System.out.println("|" + flower.getName() + "|" + flower.getColor());
+    public void print(Collection<Flower> collection) {
+        int maxLengthName = 0;
+        int maxLengthColor = 0;
+        int toBorder = 3;
+
+        for (Flower f : collection) {
+            if (maxLengthName < f.getName().length()) {
+                maxLengthName = f.getName().length();
+            }
+
+            if (maxLengthColor < f.getColor().length()) {
+                maxLengthColor = f.getColor().length();
+            }
+        }
+
+        int lengthLine = maxLengthName + maxLengthColor + TO_BORDER * TO_BORDER;
+
+        char[] chars = new char[lengthLine];
+        for (int i = 0; i < chars.length; i++) {
+            chars[i] = '-';
+        }
+        String line = new String(chars);
+
+        System.out.println(line);
+        String stringFormat = "|%-" + (maxLengthName + toBorder) + "s|%-" + (maxLengthColor + toBorder) + "s|\n";
+        System.out.printf(stringFormat, "NAME", "COLOR");
+        System.out.println(line);
+
+        for (Flower f : collection) {
+
+            System.out.printf(stringFormat, f.getName(), f.getColor());
+            System.out.println(line);
         }
     }
 }
